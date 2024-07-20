@@ -9,6 +9,7 @@ module.exports = {
   getProjectActions,
 };
 
+
 function get(id) {
   let query = db("projects as p");
 
@@ -17,7 +18,7 @@ function get(id) {
 
     const promises = [query, getProjectActions(id)]; // [ projects, actions ]
 
-    return Promise.all(promises).then(function(results) {
+    return Promise.all(promises).then(function (results) {
       let [project, actions] = results;
 
       if (project) {
