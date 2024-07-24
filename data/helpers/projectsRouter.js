@@ -33,11 +33,11 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/:id/actions', (req, res) => {
-    const projectid = req.params.id
-    Projects.getProjectActions(projectid)
-        .then(projectid => {
-            if (projectid) {
-                return res.status(200).json(projectid)
+    // const projectid = req.params.id
+    Projects.getProjectActions(req.params.id)
+        .then(actions => {
+            if (actions.length > 0) {
+                return res.status(200).json(actions)
             } else {
                 return res.status(404).json({ Message: "There are no actions for this project." });
             }
@@ -72,7 +72,7 @@ router.put('/:id', (req, res) => {
     Projects.update(id, changes)
         .then(updateProject => {
             if (!updateProject) {
-                return res.status(404).json({ Message: "null" });
+                return res.status(204).json();
             }
             Projects.get(id)
                 .then(updatedProject => {
